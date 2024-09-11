@@ -20,43 +20,50 @@ def mousePos(cord):
 
 def screen_grab(num):
     rows, cols, start_x, start_y, fin_x, fin_y = 0, 0, 0, 0, 0, 0
-    step_x = 61
+    step_x = 62
+    # step_x = 60
     step_y = 52
     width1, height1 = 52, 50
 
     if num < 2:
         rows, cols = 4, 5
-        start_x = 637
+        # start_x = 637
+        start_x = 631
         start_y = 454
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 4:
         rows, cols = 5, 5
-        start_x = 637
+        # start_x = 637
+        start_x = 631
         start_y = 429
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 6:
         rows, cols = 5, 6
-        start_x = 608
+        # start_x = 608
+        start_x = 601
         start_y = 429
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 8:
         rows, cols = 6, 6
-        start_x = 608
+        # start_x = 608
+        start_x = 601
         start_y = 404
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 10:
         rows, cols = 6, 7
-        start_x = 576
+        # start_x = 576
+        start_x = 569
         start_y = 404
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 12:
         rows, cols = 7, 7
-        start_x = 576
+        # start_x = 576
+        start_x = 569
         start_y = 377
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1

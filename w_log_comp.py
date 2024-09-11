@@ -1,16 +1,27 @@
 from PIL import Image, ImageGrab, ImageChops
 import os
 import time
-import win32api, win32con
+import win32api
+import win32con
 import cv2
 import pytesseract
 
-X1, X2 = 500, 810
-YY = 435
-width = 270
-height = 80
+# X1, X2 = 500, 810
+# YY = 435
+# width = 270
+# height = 80
 
-delta = 290
+X1, X2 = 655, 860
+YY = 295
+width = 180
+height = 45
+
+X_LEFT = 755
+X_EQUAL = 850
+X_RIGHT = 940
+Y_ANSWER = 475
+
+# delta = 290
 im_name_1 = ''
 im_name_2 = ''
 
@@ -64,9 +75,10 @@ def screen_grab(num):
                 res_2 = eval(express_2)
                 log.write(f'res_2 - {res_2} \n')
                 if res_1 > res_2:
-                    mousePos((650, 710))
+                    # mousePos((650, 710))
+                    mousePos((X_LEFT, Y_ANSWER))
                 else:
-                    mousePos((930, 710))
+                    mousePos((X_RIGHT, Y_ANSWER))
                 leftClick()
 
             except Exception as exc:
@@ -74,12 +86,14 @@ def screen_grab(num):
         except Exception as exc:
             log.write(f'express_1 - {exc.__class__.__name__} \n')
 
-
+# ---------
+# 67%
+# ---------
 
 def start_game():
-    for n in range(3):
+    for n in range(30):
         screen_grab(n)
-        time.sleep(4.0)
+        time.sleep(1.5)
 
 
 def main():

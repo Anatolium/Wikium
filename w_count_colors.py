@@ -1,11 +1,12 @@
 from PIL import Image, ImageGrab
 import os
 import time
-import win32api, win32con
+import win32api
+import win32con
 import math, operator
 from functools import reduce
 
-START_X, FIN_X = 347, 1137
+START_X, FIN_X = 0, 1130
 X_RED, X_EQUAL, X_BLUE = 570, 745, 920
 Y_ANSWER = 863
 
@@ -87,9 +88,9 @@ def screen_grab(num):
                 x1 = xx[col] - 7
                 y1 = yy[row]
                 box = (x1 - width1/2, y1 - height1/2, x1 + width1/2, y1 + height1/2)
-                im_crop = im_full.crop(box)
+                # im_crop = im_full.crop(box)
                 im_name = os.getcwd() + '\\count_' + str(row+1).zfill(2) + str(col+1).zfill(2) + '.png'
-                im_crop.save(im_name, 'PNG')
+                # im_crop.save(im_name, 'PNG')
                 im1 = Image.open(im_name)
                 h1 = im1.histogram()
 
