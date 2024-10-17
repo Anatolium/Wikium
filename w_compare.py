@@ -5,9 +5,8 @@ import win32api, win32con
 import math, operator
 from functools import reduce
 
-
-X1 = 515
-X2 = 805
+X1 = 505
+X2 = 795
 YY = 350
 width = 260
 height = 320
@@ -15,14 +14,13 @@ im_name_1 = ''
 im_name_2 = ''
 
 
-def leftClick():
+def left_click():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
     time.sleep(.1)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
-    print('Click')
 
 
-def mousePos(cord):
+def mouse_pos(cord):
     win32api.SetCursorPos((cord[0], cord[1]))
 
 
@@ -54,14 +52,12 @@ def write_log(num, rms):
 
 
 def start_game():
-    for n in range(64):
+    for n in range(85):
         if screen_grab(n):
-            mousePos((820, 700))
-            #mousePos((820, 650))
+            mouse_pos((820, 700))
         else:
-            mousePos((750, 700))
-            #mousePos((750, 650))
-        leftClick()
+            mouse_pos((750, 700))
+        left_click()
         time.sleep(0.35)
 
 

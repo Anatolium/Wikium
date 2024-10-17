@@ -6,9 +6,6 @@ import math, operator
 from functools import reduce
 
 # full screen 206x252
-# ------------------------------
-#     100%
-# ------------------------------
 
 #X1, Y1, X2, Y2 = 693, 417, 899, 669
 #X1, Y1, X2, Y2 = 688, 477, 894, 729
@@ -97,10 +94,12 @@ def compare_windows(num):
                         exit(0)
     return n_diff
 
-
+# ------------------------------
+#     100%
+# ------------------------------
 def start_game():
     read_image()
-    for n in range(95):
+    for n in range(105):
         screen_grab(n)
         time.sleep(1.2)
 

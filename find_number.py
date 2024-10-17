@@ -6,86 +6,112 @@ import pyautogui
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Координаты кнопки "Далее"
-XX, YY = 760, 670
-GAME_URL = "https://wikium.ru/game/number-one-numbers"
+# game_url = "https://wikium.ru/challenge/12156/play"
+CREDENTIALS = {
+    "1": {"email": "lan2002@yandex.ru", "psw": "wikiu2349"},
+    "2": {"email": "shkolamid@yandex.ru", "psw": "sm1962"},
+    "3": {"email": "mezzo-2011@yandex.ru", "psw": "wikiu2349"}
+}
 
 
 def find_number():
-    # n_cycles = int(input("Число проходов for: "))
-    n_cycles = 60
+    element_table = []
+    number_to_find = ""
+    n_account = input("РќРѕРјРµСЂ Р°РєРєР°СѓРЅС‚Р°: ")
+    if int(n_account) not in range(1, 4):
+        n_account = 2
 
-    credentials = {
-        "email": ["mezzo-2011@yandex.ru"],  # Вставьте email своего аккаунта
-        "psw": ["wikiu2349"]  # Вставьте свой пароль
-    }
+    n_cycles = int(input("N loops: "))
+    # n_cycles = 35
+
+    n_play = int(input("РќРѕРјРµСЂ РёРіСЂС‹: "))
+    game_url = f"https://wikium.ru/challenge/{n_play}/play"
+
+    print("*** РљРѕРіРґР° РїРѕСЏРІРёС‚СЃСЏ РєРЅРѕРїРєР° 'Р”Р°Р»РµРµ', РЅР°РґРѕ РєР»РёРєРЅСѓС‚СЊ РїРѕ РЅРµР№ Рё Р·Р°С‚РµРј РїРѕ СЌРєСЂР°РЅСѓ ***")
+    time.sleep(1)
+
+    account_email = CREDENTIALS.get(n_account).get("email")
+    account_psw = CREDENTIALS.get(n_account).get("psw")
 
     browser = webdriver.Chrome()
     browser.get("https://wikium.ru/login")
 
     search_box = browser.find_element(By.ID, "Form_User_LoginForm_email")
-    search_box.send_keys(credentials.get("email"))
+    search_box.send_keys(account_email)
     search_box.send_keys(Keys.TAB)
 
     search_box = browser.find_element(By.ID, "Form_User_LoginForm_password")
-    search_box.send_keys(credentials.get("psw"))
+    search_box.send_keys(account_psw)
     search_box.send_keys(Keys.RETURN)
-    # Пауза на прохождение Capture
-    time.sleep(20)
 
-    browser.get(GAME_URL)
+    # Capture
+    time.sleep(15)
+    print("Р’СЂРµРјСЏ Capture РёСЃС‚РµРєР»Рѕ")
+
+    start_time = time.time()
+    browser.get(game_url)
     browser.fullscreen_window()
+    end_time = time.time()
 
-    time.sleep(2)
-    # Клик по кнопке "Далее"
-    pyautogui.moveTo(XX, YY)
-    pyautogui.click()
+    time_for_fullscreen = end_time - start_time
+    print(f"Р’СЂРµРјСЏ, Р·Р°С‚СЂР°С‡РµРЅРЅРѕРµ РЅР° browser.get + browser.fullscreen_window: {time_for_fullscreen:.2f} СЃРµРєСѓРЅРґ")
 
-    time.sleep(1)
-    # Клик в любой точке для старта
-    pyautogui.click()
-    time.sleep(3)
-    pyautogui.moveTo(XX+400, YY+100)
+    # РџР°СѓР·Р° РґР»СЏ РєР»РёРєР° РЅР° РєРЅРѕРїРєРµ "Р”Р°Р»РµРµ" Рё СЃР»РµРґСѓСЋС‰РµРіРѕ РєР»РёРєР° РЅР° СЌРєСЂР°РЅРµ
+    time.sleep(6)
 
-    # Переключаемся во frame, в котором идёт тренажёр
+    # # РљР»РёРє РїРѕ РєРЅРѕРїРєРµ "Р”Р°Р»РµРµ"
+    # XX, YY = 760, 670
+    # wait = WebDriverWait(browser, 10)
+    # try:
+    #     # button = wait.until(EC.element_to_be_clickable(
+    #     #     (By.CSS_SELECTOR, '.game-screen__btn.game-screen__btn--desktop.btn.btn--purple.ng-scope')))
+    #     button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".game-screen__btn--desktop")))
+    # except  Exception as e:
+    #     print(f"РљР»РёРє РїРѕ РєРЅРѕРїРєРµ 'Р”Р°Р»РµРµ' РЅРµСѓРґР°С‡РµРЅ: {e}")
+    #     pyautogui.moveTo(XX, YY)
+    #     pyautogui.click()
+    #     print(f"РљР»РёРє РЅР° {XX}x{YY}")
+    # else:
+    #     button.click()
+    # time.sleep(1)
+    #
+    # # РљР»РёРє РїРѕ СЌРєСЂР°РЅСѓ РІ Р»СЋР±РѕРј РјРµСЃС‚Рµ
+    # pyautogui.click()
+    # print(f"РљР»РёРє 2 РЅР° {XX}x{YY}")
+    # # РћС‚СЃС‡С‘С‚ 3вЂ¦2вЂ¦1
+    # time.sleep(4)
+
+    # Switch to frame
     try:
-        WebDriverWait(browser, 10).until(EC.frame_to_be_available_and_switch_to_it((By.CLASS_NAME, "game__iframe")))
+        WebDriverWait(browser, 2).until(EC.frame_to_be_available_and_switch_to_it((By.CLASS_NAME, "play__iframe")))
     except Exception as e:
         print(f"Error (switch to frame): {e}")
-
-    # Проходим тренажёр
-    for _ in range(n_cycles):
-        # Если минута истекла и тренажёр закрылся, завершаем цикл
-        if browser.current_url != GAME_URL:
-            break
-        try:
-            # Ищем элемент с загаданным числом
-            element_to_find = browser.find_element(By.CSS_SELECTOR, '.number-one-numbers__task-reference')
-            number_to_find = element_to_find.text
-        except Exception as e:
-            print(f"Error: {e}")
-
-        try:
-            # Ищем элементы с числами таблицы
-            element_table = browser.find_elements(By.CSS_SELECTOR, '.number-one-numbers__item-inner')
-        except Exception as e:
-            print(f"Error: {e}")
-
-        # Ищем заданное число
-        for element in element_table:
-            if element.text == number_to_find:
-                element.click()  # Если тексты элементов равны, кликаем по найденному объекту
+    else:
+        for _ in range(n_cycles):
+            if browser.current_url != game_url:
                 break
+            try:
+                element_to_find = browser.find_element(By.CSS_SELECTOR, '.number-one-numbers__task-reference')
+                number_to_find = element_to_find.text
+            except Exception as e:
+                print(f"Error: {e}")
 
-        # Ждём следующее число
-        time.sleep(1)
+            try:
+                element_table = browser.find_elements(By.CSS_SELECTOR, '.number-one-numbers__item-inner')
+            except Exception as e:
+                print(f"Error: {e}")
 
-    # Пауза перед закрытием тренажёра; смотрим результат
-    time.sleep(30)
-    browser.quit()
+            for element in element_table:
+                if element.text == number_to_find:
+                    element.click()
+                    break
+
+            time.sleep(1)
+
+        time.sleep(40)
+    finally:
+        browser.quit()
 
 
 if __name__ == "__main__":
     find_number()
-
-

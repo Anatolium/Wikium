@@ -5,9 +5,9 @@ import win32api, win32con
 import math, operator
 from functools import reduce
 
-X1, X2 = 567, 840     # турнир
+X1, X2 = 562, 835     # турнир
 Y1 = 550              # турнир
-# X1, X2 = 562, 835
+# X1, X2 = 567, 840
 # Y1 = 505
 WIDTH, HEIGHT = 165, 50
 X_NO = 750
@@ -54,7 +54,7 @@ def read_images():
 def screen_grab(num):
     box = (X1, Y1, X1+WIDTH, Y1+HEIGHT)
     im1 = ImageGrab.grab(box)
-    im_name = os.getcwd() + '\\colour_left.jpg'
+    im_name = os.getcwd() + f'\\colour_left-{num+1}.jpg'
     im1.save(im_name, 'JPEG')
     im1 = Image.open(im_name)
 
@@ -63,7 +63,7 @@ def screen_grab(num):
 
     box = (X2, Y1, X2+WIDTH, Y1+HEIGHT)
     im2 = ImageGrab.grab(box)
-    im_name = os.getcwd() + '\\colour_right.jpg'
+    im_name = os.getcwd() + f'\\colour_right-{num+1}.jpg'
     im2.save(im_name, 'JPEG')
     im2 = Image.open(im_name)
 
@@ -77,6 +77,8 @@ def screen_grab(num):
     else:
         with open('w_colours.log', 'a') as log:
             log.write(f'Level {num+1} - Colour not found\n\n')
+        mousePos((X_NO, Y_NO))
+        leftClick()
 
     return 1
 
