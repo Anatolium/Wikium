@@ -85,9 +85,11 @@ def check_answer(num):
     # im_name = os.getcwd() + '\\match_' + str(num+1).zfill(2) + '.png'
     # im.save(im_name, 'PNG')
 
-
+############################
+#   100%
+############################
 def start_game():
-    for n in range(95):
+    for n in range(101):    #95
         if screen_grab(n):
             mousePos((X_YES, Y_NY))
         else:
@@ -98,9 +100,5 @@ def start_game():
         time.sleep(0.22)
 
 
-def main():
-    start_game()
-
-
 if __name__ == '__main__':
-    main()
+    start_game()

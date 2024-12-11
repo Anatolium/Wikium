@@ -52,7 +52,7 @@ def screen_grab(num):
             windows_2.append(im_crop)
             if num == 0:
                 im_name = os.getcwd() + '\\nabl_' + str(y+1) + str(x+1) + '.png'
-                im_crop.save(im_name, 'PNG')
+                # im_crop.save(im_name, 'PNG')
 
     if num == 0:
         windows_1 = windows_2.copy()
@@ -99,7 +99,7 @@ def compare_windows(num):
 # ------------------------------
 def start_game():
     read_image()
-    for n in range(105):
+    for n in range(90):
         screen_grab(n)
         time.sleep(1.2)
 

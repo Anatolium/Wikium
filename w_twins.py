@@ -171,7 +171,7 @@ def compare(twins: list, nnn):
 
 
 def start_game():
-    for n in range(10):
+    for n in range(11):
         screen_grab(n)
         mousePos((1050, 300))
         time.sleep(2.4)

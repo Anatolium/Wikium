@@ -1,30 +1,39 @@
 from PIL import Image, ImageGrab
+# from pillow import Image, ImageGrab
 import os
 import time
-import win32api, win32con
-import math, operator
+import win32api
+import win32con
+import math
+import operator
 from functools import reduce
 
-X1, X2 = 562, 835     # турнир
-Y1 = 550              # турнир
-# X1, X2 = 567, 840
-# Y1 = 505
+############################
+#   100%
+############################
+# X1, X2 = 567, 840     # турнир
+# Y1 = 550              # турнир
+X1, X2 = 562, 835
+# X1, X2 = 538, 811
+# Y1 = 560
+# X1, X2 = 562, 835
+Y1 = 551
 WIDTH, HEIGHT = 165, 50
-X_NO = 750
-X_YES = 820
-Y_NO = 705            # турнир
+#X_NO = 730
+#X_YES = 795
+X_NO, X_YES = 750, 820
+Y_YES, Y_NO = 705, 705
 # Y_NO = 660
-Y_YES = Y_NO
+# Y_YES = Y_NO
 
 
 samples_left = []
 samples_right = []
-hb = 0.0
+hb = []
 
 
 def leftClick():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
-    time.sleep(.1)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 
 
@@ -54,18 +63,21 @@ def read_images():
 def screen_grab(num):
     box = (X1, Y1, X1+WIDTH, Y1+HEIGHT)
     im1 = ImageGrab.grab(box)
-    im_name = os.getcwd() + f'\\colour_left-{num+1}.jpg'
-    im1.save(im_name, 'JPEG')
-    im1 = Image.open(im_name)
+    im_name1 = os.getcwd() + '\\colour_left-{}.jpg'.format(str(num+1).zfill(3))
+    im1.save(im_name1, 'JPEG')
+    im1 = Image.open(im_name1)
 
     if is_blank(im1, num):
         return 0
 
     box = (X2, Y1, X2+WIDTH, Y1+HEIGHT)
     im2 = ImageGrab.grab(box)
-    im_name = os.getcwd() + f'\\colour_right-{num+1}.jpg'
-    im2.save(im_name, 'JPEG')
-    im2 = Image.open(im_name)
+    im_name2 = os.getcwd() + '\\colour_right-{}.jpg'.format(str(num+1).zfill(3))
+    im2.save(im_name2, 'JPEG')
+    im2 = Image.open(im_name2)
+
+    # mousePos((X_YES, Y_YES))
+    # leftClick()
 
     guess = compare(im1, im2, num)
     if guess == 1:
@@ -77,8 +89,10 @@ def screen_grab(num):
     else:
         with open('w_colours.log', 'a') as log:
             log.write(f'Level {num+1} - Colour not found\n\n')
-        mousePos((X_NO, Y_NO))
-        leftClick()
+
+    if guess > 0:
+        os.remove(im_name1)
+        os.remove(im_name2)
 
     return 1
 
@@ -104,28 +118,30 @@ def compare(im1, im2, num):
                 log.write(f'------------------------------- Level {num+1}\n')
         hs = samples_left[i].histogram()
         rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h1, hs)) / len(h1))
-        if rms < 1.0:
+        #if rms < 1.0:
+        if rms < 7.0 or round(rms, 3) == 11.255:
             found_1 = i + 1
             with open('w_colours.log', 'a') as log:
                 log.write(f'--- rms 1 = {round(rms, 4)}  found 1 = {i+1}\n')
             break
-        # else:
-        #     with open('w_colours.log', 'a') as log:
-        #         log.write(f'--- rms 1 = {round(rms, 4)}\n')
+        else:
+            with open('w_colours.log', 'a') as log:
+                log.write(f'--- rms 1 = {round(rms, 4)}\n')
 
     found_2 = 0
     h2 = im2.histogram()
     for i in range(size):
         hs = samples_right[i].histogram()
         rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h2, hs)) / len(h2))
-        if rms < 1.0:
+        #if rms < 1.0:
+        if rms < 7.0:
             found_2 = i + 1
             with open('w_colours.log', 'a') as log:
                 log.write(f'--- rms 2 = {round(rms, 4)}  found 2 = {i+1}\n')
             break
-        # else:
-        #     with open('w_colours.log', 'a') as log:
-        #         log.write(f'--- rms 2 = {round(rms, 4)}\n')
+        else:
+            with open('w_colours.log', 'a') as log:
+                log.write(f'--- rms 2 = {round(rms, 4)}\n')
 
     if found_1 * found_2 > 0:
         if found_1 == 1 or found_1 == 5 or found_1 == 9 or found_1 == 13:
@@ -155,21 +171,20 @@ def compare(im1, im2, num):
     return 0
 
 
+############################
+#   100%
+############################
+
 def start_game():
     n_blank = 0
     read_images()
-    for n in range(99):
+    # 70 … 120
+    for n in range(100):
         if screen_grab(n) == 0:
             n_blank += 1
-        mousePos((1050, 300))
+        # mousePos((1600, 180))
         time.sleep(0.4)
-    with open('w_colours.log', 'a') as log:
-        log.write(f'--- {n_blank} blank images\n\n')
-
-
-def main():
-    start_game()
 
 
 if __name__ == '__main__':
-    main()
+    start_game()

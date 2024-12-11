@@ -135,6 +135,9 @@ def compare(twins: list, nnn):
                 return i
     return -1
 
+#---------------------------
+#     125%
+#---------------------------
 
 def start_game():
     read_images()
