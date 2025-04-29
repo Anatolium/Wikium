@@ -11,12 +11,14 @@ from functools import reduce
 ############################
 #   100%
 ############################
+
+ERROR_DELTA = 8.0
+
 # X1, X2 = 567, 840     # турнир
 # Y1 = 550              # турнир
 X1, X2 = 562, 835
 # X1, X2 = 538, 811
 # Y1 = 560
-# X1, X2 = 562, 835
 Y1 = 551
 WIDTH, HEIGHT = 165, 50
 #X_NO = 730
@@ -119,7 +121,7 @@ def compare(im1, im2, num):
         hs = samples_left[i].histogram()
         rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h1, hs)) / len(h1))
         #if rms < 1.0:
-        if rms < 7.0 or round(rms, 3) == 11.255:
+        if rms < ERROR_DELTA or round(rms, 3) == 11.255:
             found_1 = i + 1
             with open('w_colours.log', 'a') as log:
                 log.write(f'--- rms 1 = {round(rms, 4)}  found 1 = {i+1}\n')
@@ -134,7 +136,7 @@ def compare(im1, im2, num):
         hs = samples_right[i].histogram()
         rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h2, hs)) / len(h2))
         #if rms < 1.0:
-        if rms < 7.0:
+        if rms < ERROR_DELTA:
             found_2 = i + 1
             with open('w_colours.log', 'a') as log:
                 log.write(f'--- rms 2 = {round(rms, 4)}  found 2 = {i+1}\n')
@@ -179,11 +181,11 @@ def start_game():
     n_blank = 0
     read_images()
     # 70 … 120
-    for n in range(100):
+    for n in range(140):
         if screen_grab(n) == 0:
             n_blank += 1
         # mousePos((1600, 180))
-        time.sleep(0.4)
+        time.sleep(0.35)
 
 
 if __name__ == '__main__':

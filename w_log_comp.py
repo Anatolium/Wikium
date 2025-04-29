@@ -4,19 +4,15 @@ import win32api, win32con
 import pytesseract
 
 X1, X2 = 652, 862
-#X1, X2 = 675, 885
+# X1, X2 = 675, 885
 YY = 297
 X_LEFT = 760
 X_EQUAL = 850
 X_RIGHT = 950
 Y_ANSWER = 475
 
-WIDTH = 185     #150
+WIDTH = 185  # 150
 HEIGHT = 40
-
-###########
-### 67%
-###########
 
 # X1, X2 = 590, 840
 # YY = 370
@@ -55,16 +51,16 @@ def screen_grab(num):
         #         makeClick(2)
         #     else:
         #         makeClick(1)
-            #makeClick(1)
-            # if num == 36:
-            #     makeClick(1)
-            # elif num == 37:
-            #     makeClick(1)
-            # elif num == 38:
-            #     makeClick(2)
-            # elif num == 39:
-            #     makeClick(2)
-            #return
+        # makeClick(1)
+        # if num == 36:
+        #     makeClick(1)
+        # elif num == 37:
+        #     makeClick(1)
+        # elif num == 38:
+        #     makeClick(2)
+        # elif num == 39:
+        #     makeClick(2)
+        # return
         pass
     else:
         with open('w_log_comp.log', 'a') as log:
@@ -98,9 +94,9 @@ def screen_grab(num):
             if j == 1:
                 with open('w_log_comp.log', 'a') as log:
                     try:
-                        log.write(f'{str(num+1).zfill(2)} - express_1 = {express_1} - {err.__class__.__name__}\n')
+                        log.write(f'{str(num + 1).zfill(2)} - express_1 = {express_1} - {err.__class__.__name__}\n')
                     except Exception as exc:
-                        log.write(f'{str(num+1).zfill(2)} - express_1 = {exc.__class__.__name__}\n')
+                        log.write(f'{str(num + 1).zfill(2)} - express_1 = {exc.__class__.__name__}\n')
                 # im_name = os.getcwd() + '\\log_' + str(num+1).zfill(2) + '.png'
                 # im1.save(im_name, 'PNG')
                 make_click(2)
@@ -129,9 +125,9 @@ def screen_grab(num):
             if j == 1:
                 with open('w_log_comp.log', 'a') as log:
                     try:
-                        log.write(f'{str(num+1).zfill(2)} - express_2 = {express_2} - {err.__class__.__name__}\n')
+                        log.write(f'{str(num + 1).zfill(2)} - express_2 = {express_2} - {err.__class__.__name__}\n')
                     except Exception as exc:
-                        log.write(f'{str(num+1).zfill(2)} - express_2 = {exc.__class__.__name__}\n')
+                        log.write(f'{str(num + 1).zfill(2)} - express_2 = {exc.__class__.__name__}\n')
                 # im_name = os.getcwd() + '\\log_' + str(num+1).zfill(2) + '_.png'
                 # im2.save(im_name, 'PNG')
                 make_click(1)
@@ -160,16 +156,17 @@ def make_click(button):
     leftClick()
 
 
+# =====================
+# 67%
+# =====================
+
 def start_game():
     mousePos((1600, 80))
-    for n in range(62):     # 68    # 50
+    # 50…70
+    for n in range(55):
         screen_grab(n)
         time.sleep(0.55)
 
 
-def main():
-    start_game()
-
-
 if __name__ == '__main__':
-    main()
+    start_game()

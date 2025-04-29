@@ -5,6 +5,7 @@ import win32api, win32con
 import math, operator
 from functools import reduce
 
+
 # Нужно проверить координаты для уровней 15-20 (num = 14…19)
 
 
@@ -110,7 +111,7 @@ def screen_grab(num):
 
     box = (start_x, start_y, fin_x, fin_y)
     im = ImageGrab.grab(box)
-    #images.append(im)
+    # images.append(im)
 
     for yy in range(rows):
         for xx in range(cols):
@@ -147,9 +148,9 @@ def screen_grab(num):
         leftClick()
     else:
         with open('w_twins.log', 'a') as log:
-            #im_name = os.getcwd() + '\\twins_' + str(num+1) + '.png'
-            #images[num].save(im_name, 'PNG')
-            log.write(f'Level {num+1} - Twins not found\n')
+            # im_name = os.getcwd() + '\\twins_' + str(num+1) + '.png'
+            # images[num].save(im_name, 'PNG')
+            log.write(f'Level {num + 1} - Twins not found\n')
 
 
 def compare(twins: list, nnn):
@@ -165,21 +166,21 @@ def compare(twins: list, nnn):
             if rms < 0.8:
                 if nnn > 11:
                     with open('w_twins.log', 'a') as log:
-                        log.write(f'Level {nnn+1} --- {str(i).zfill(2)} + {str(j).zfill(2)} --- rms = {rms} \n')
+                        log.write(f'Level {nnn + 1} --- {str(i).zfill(2)} + {str(j).zfill(2)} --- rms = {rms} \n')
                 return i
     return -1
 
 
+# ======================
+# 100%
+# ======================
+
 def start_game():
-    for n in range(11):
+    for n in range(12):
         screen_grab(n)
-        mousePos((1050, 300))
+        mousePos((1050, 200))
         time.sleep(2.4)
 
 
-def main():
-    start_game()
-
-
 if __name__ == '__main__':
-    main()
+    start_game()

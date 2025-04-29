@@ -45,7 +45,7 @@ def find_number():
     search_box.send_keys(Keys.RETURN)
 
     # Capture
-    time.sleep(100)
+    time.sleep(40)
     print("Время Capture истекло")
 
     start_time = time.time()

@@ -99,7 +99,8 @@ def compare_windows(num):
 # ------------------------------
 def start_game():
     read_image()
-    for n in range(90):
+    # 75 105
+    for n in range(105):
         screen_grab(n)
         time.sleep(1.2)
 
