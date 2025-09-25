@@ -29,14 +29,14 @@ def screen_grab(num):
     if num < 2:
         rows, cols = 4, 5
         # start_x = 637
-        start_x = 631
-        start_y = 454
+        start_x = 633
+        start_y = 456
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 4:
         rows, cols = 5, 5
         # start_x = 637
-        start_x = 631
+        start_x = 633
         start_y = 429
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
@@ -57,14 +57,16 @@ def screen_grab(num):
     elif num < 10:
         rows, cols = 6, 7
         # start_x = 576
-        start_x = 569
+        # start_x = 569
+        start_x = 572
         start_y = 404
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
     elif num < 12:
         rows, cols = 7, 7
         # start_x = 576
-        start_x = 569
+        # start_x = 569
+        start_x = 572
         start_y = 377
         fin_x = start_x + (cols - 1) * step_x + width1
         fin_y = start_y + (rows - 1) * step_y + height1
@@ -111,7 +113,7 @@ def screen_grab(num):
 
     box = (start_x, start_y, fin_x, fin_y)
     im = ImageGrab.grab(box)
-    # images.append(im)
+    images.append(im)
 
     for yy in range(rows):
         for xx in range(cols):
@@ -146,11 +148,14 @@ def screen_grab(num):
         coord_click = coord[guess]
         mousePos((coord_click[0] + 20, coord_click[1] + 20))
         leftClick()
-    else:
-        with open('w_twins.log', 'a') as log:
-            # im_name = os.getcwd() + '\\twins_' + str(num+1) + '.png'
-            # images[num].save(im_name, 'PNG')
-            log.write(f'Level {num + 1} - Twins not found\n')
+    # else:
+    #     with open('w_twins.log', 'a') as log:
+    #         im_name = os.getcwd() + '\\twins_' + str(num + 1) + '.png'
+    #         try:
+    #             images[num].save(im_name, 'PNG')
+    #         except:
+    #             print(f"num={num}")
+    #         log.write(f'Level {num + 1} - Twins not found\n')
 
 
 def compare(twins: list, nnn):
@@ -164,10 +169,11 @@ def compare(twins: list, nnn):
             rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h1, h2)) / len(h1))
 
             if rms < 0.8:
-                if nnn > 11:
-                    with open('w_twins.log', 'a') as log:
-                        log.write(f'Level {nnn + 1} --- {str(i).zfill(2)} + {str(j).zfill(2)} --- rms = {rms} \n')
                 return i
+
+    with open('w_twins.log', 'a') as log:
+        log.write(f'Level {nnn + 1} --- {str(i).zfill(2)} + {str(j).zfill(2)} --- rms = {rms} \n')
+
     return -1
 
 
@@ -176,7 +182,8 @@ def compare(twins: list, nnn):
 # ======================
 
 def start_game():
-    for n in range(12):
+    # 10…12
+    for n in range(11):
         screen_grab(n)
         mousePos((1050, 200))
         time.sleep(2.4)

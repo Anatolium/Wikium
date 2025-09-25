@@ -16,7 +16,7 @@ ERROR_DELTA = 8.0
 
 # X1, X2 = 567, 840     # турнир
 # Y1 = 550              # турнир
-X1, X2 = 562, 835
+X1, X2 = 563, 836
 # X1, X2 = 538, 811
 # Y1 = 560
 Y1 = 551
@@ -180,8 +180,8 @@ def compare(im1, im2, num):
 def start_game():
     n_blank = 0
     read_images()
-    # 70 … 120
-    for n in range(140):
+    # 70 … 140
+    for n in range(130):
         if screen_grab(n) == 0:
             n_blank += 1
         # mousePos((1600, 180))

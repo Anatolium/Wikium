@@ -7,14 +7,14 @@ from functools import reduce
 
 # full screen 206x252
 
-#X1, Y1, X2, Y2 = 693, 417, 899, 669
-#X1, Y1, X2, Y2 = 688, 477, 894, 729
+# X1, Y1, X2, Y2 = 693, 417, 899, 669
+# X1, Y1, X2, Y2 = 688, 477, 894, 729
 X1, Y1, X2, Y2 = 688, 417, 894, 669
 WIDTH, HEIGHT = 42, 54
 win_x = [0, 54, 110, 164]
 win_y = [0, 66, 134, 199]
-#answer = [(645, 725), (685, 725), (725, 725), (765, 725), (800, 725), (840, 725), (880, 725), (920, 725)]
-#answer = [(640, 785), (678, 785), (718, 785), (758, 785), (796, 785), (836, 785), (876, 785), (916, 785)]
+# answer = [(645, 725), (685, 725), (725, 725), (765, 725), (800, 725), (840, 725), (880, 725), (920, 725)]
+# answer = [(640, 785), (678, 785), (718, 785), (758, 785), (796, 785), (836, 785), (876, 785), (916, 785)]
 answer = [(640, 725), (678, 725), (718, 725), (758, 725), (796, 725), (836, 725), (876, 725), (916, 725)]
 
 windows_1, windows_2 = [], []
@@ -36,7 +36,7 @@ def read_image():
     file_name = os.path.join('observer', 'empty_window.jpg')
     empty = Image.open(file_name)
     h_empty = empty.histogram()
-    #print(f'h_empty = {h_empty}')
+    # print(f'h_empty = {h_empty}')
 
 
 def screen_grab(num):
@@ -51,7 +51,7 @@ def screen_grab(num):
             im_crop = im.crop(box)
             windows_2.append(im_crop)
             if num == 0:
-                im_name = os.getcwd() + '\\nabl_' + str(y+1) + str(x+1) + '.png'
+                im_name = os.getcwd() + '\\nabl_' + str(y + 1) + str(x + 1) + '.png'
                 # im_crop.save(im_name, 'PNG')
 
     if num == 0:
@@ -89,21 +89,21 @@ def compare_windows(num):
                 rms = math.sqrt(reduce(operator.add, map(lambda a, b: (a - b) ** 2, h2, h_empty)) / len(h2))
                 if rms > 13.0:
                     n_diff += 1
-                    log.write(f'--- num={num+1} i={i+1} rms_empty={rms}\n')
+                    log.write(f'--- num={num + 1} i={i + 1} rms_empty={rms}\n')
                     if rms > 100.0:
                         exit(0)
     return n_diff
+
 
 # ------------------------------
 #     100%
 # ------------------------------
 def start_game():
     read_image()
-    # 75 105
-    for n in range(105):
+    # 72…108
+    for n in range(72):
         screen_grab(n)
         time.sleep(1.2)
-
 
 
 if __name__ == '__main__':

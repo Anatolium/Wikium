@@ -88,9 +88,10 @@ def check_answer(num):
 ############################
 #   100%
 ############################
+
 def start_game():
     # 77…95
-    for n in range(80):
+    for n in range(95):
         if screen_grab(n):
             mousePos((X_YES, Y_NY))
         else:

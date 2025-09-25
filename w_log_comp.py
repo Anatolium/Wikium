@@ -1,6 +1,8 @@
 from PIL import Image, ImageGrab
 import time
 import win32api, win32con
+import pandas
+print(pandas.__file__)
 import pytesseract
 
 X1, X2 = 652, 862
@@ -90,7 +92,7 @@ def screen_grab(num):
         except Exception as err:
             wr = round(wr * 0.7)
             hr = round(hr * 0.7)
-            im1.thumbnail((wr, hr), Image.ADAPTIVE)
+            im1.thumbnail((wr, hr), Image.Resampling.LANCZOS)
             if j == 1:
                 with open('w_log_comp.log', 'a') as log:
                     try:
@@ -163,7 +165,7 @@ def make_click(button):
 def start_game():
     mousePos((1600, 80))
     # 50…70
-    for n in range(55):
+    for n in range(70):
         screen_grab(n)
         time.sleep(0.55)
 

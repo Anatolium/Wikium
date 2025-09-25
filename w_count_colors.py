@@ -3,10 +3,9 @@ import os
 import time
 import win32api, win32con
 
-
 START_X, START_Y, FIN_X, FIN_Y = 0, 0, 1130, 900
 X_RED, X_EQUAL, X_BLUE = 555, 735, 910
-#Y_ANSWER = 938
+# Y_ANSWER = 938
 Y_ANSWER = 865
 
 h_red, h_blue, h_red2, h_blue2 = [], [], [], []
@@ -30,13 +29,13 @@ def screen_grab(num):
     n_red, n_blue = 0, 0
 
     if num < 10:
-       xx = [385, 447, 510, 572, 635, 697, 760, 822, 885, 947, 1010, 1072]
+        xx = [385, 447, 510, 572, 635, 697, 760, 822, 885, 947, 1010, 1072]
     # xx = [361, 423, 486, 548, 611, 673, 736, 798, 861, 923, 986, 1048]
     elif num < 16:
-       xx = [378, 428, 478, 528, 578, 628, 678, 728, 778, 828, 878, 928, 978, 1028, 1078]
+        xx = [378, 428, 478, 528, 578, 628, 678, 728, 778, 828, 878, 928, 978, 1028, 1078]
         # xx = [354, 404, 454, 504, 554, 604, 654, 704, 754, 804, 854, 904, 954, 1004, 1054]
     else:
-       xx = [375, 419, 463, 506, 550, 593, 638, 681, 725, 769, 813, 856, 900, 944, 988, 1031, 1075]
+        xx = [375, 419, 463, 506, 550, 593, 638, 681, 725, 769, 813, 856, 900, 944, 988, 1031, 1075]
         # xx = [351, 395, 438, 482, 526, 570, 614, 658, 701, 745, 789, 832, 876, 920, 964, 1007, 1051]
     yy = []
 
@@ -44,17 +43,17 @@ def screen_grab(num):
         rows, cols = 2, 12
         # yy = [685, 749]
         yy = [615, 675]
-        #yy = [555, 615]     # тренажёры
+        # yy = [555, 615]     # тренажёры
     elif num < 8:
         rows, cols = 3, 12
         # yy = [654, 717, 780]
         yy = [582, 642, 710]
-        #yy = [522, 582, 650]     # тренажёры
+        # yy = [522, 582, 650]     # тренажёры
     elif num < 10:
         rows, cols = 4, 12
         # yy = [624, 686, 749, 811]
         yy = [550, 610, 675, 737]
-        #yy = [490, 550, 615, 677]     # тренажёры
+        # yy = [490, 550, 615, 677]     # тренажёры
     elif num < 14:
         rows, cols = 4, 15
         # xx = [378, 428, 478, 528, 578, 628, 678, 728, 778, 828, 878, 928, 978, 1028, 1078]
@@ -85,7 +84,7 @@ def screen_grab(num):
             for col in range(cols):
                 x1 = xx[col]
                 y1 = yy[row]
-                box = (x1 - width1/2, y1 - height1/2, x1 + width1/2, y1 + height1/2)
+                box = (x1 - width1 / 2, y1 - height1 / 2, x1 + width1 / 2, y1 + height1 / 2)
                 im_crop = im_full.crop(box)
                 # Если не заработает, вернуть вариант 1
                 # Вариант 1
@@ -96,8 +95,8 @@ def screen_grab(num):
 
                 # Вариант 2
                 im_rgb = im_crop.convert('RGB')
-                r, g, b = im_rgb.getpixel((width1/2, height1/2))
-                log.write(f'num={num+1} row={row+1} col={col+1} r={r} g={g} b={b}\n')
+                r, g, b = im_rgb.getpixel((width1 / 2, height1 / 2))
+                log.write(f'num={num + 1} row={row + 1} col={col + 1} r={r} g={g} b={b}\n')
                 # r=255 g=0 b=0 – red
                 # r=96 g=209 b=248 – blue
                 # r=22 g=46 b=57 – empty
@@ -120,6 +119,7 @@ def screen_grab(num):
     mousePos((x_answer, Y_ANSWER))
     leftClick()
 
+
 # ------------------------------
 #     125%
 # ------------------------------
@@ -127,15 +127,15 @@ def screen_grab(num):
 
 def main():
     # 22 … 30
-    for n in range(21):
+    for n in range(20):
         screen_grab(n)
         mousePos((1050, 300))
         # 9070
         time.sleep(1.2)
         # 8200
-        #time.sleep(2.2)
+        # time.sleep(2.2)
         # 5115
-        #time.sleep(3.5)
+        # time.sleep(3.5)
 
 
 if __name__ == '__main__':
